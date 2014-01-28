@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DeleteInBatches::VERSION
   spec.authors       = ["Andrew Kane"]
   spec.email         = ["andrew@chartkick.com"]
-  spec.summary       = %q{The fastest way to delete millions of rows with ActiveRecord}
-  spec.description   = %q{The fastest way to delete millions of rows with ActiveRecord}
+  spec.summary       = %q{The fastest way to delete 100k+ rows with ActiveRecord}
+  spec.description   = %q{The fastest way to delete 100k+ rows with ActiveRecord}
   spec.homepage      = "https://github.com/ankane/delete_in_batches"
   spec.license       = "MIT"
 

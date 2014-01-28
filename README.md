@@ -1,6 +1,6 @@
 # delete_in_batches
 
-:fire: The fastest way to delete millions of rows with ActiveRecord
+:fire: The fastest way to delete 100k+ of rows with ActiveRecord
 
 ## Slow
 
