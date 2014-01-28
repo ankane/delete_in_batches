@@ -19,5 +19,13 @@ ActiveRecord::Migration.create_table :tweets, :force => true do |t|
   t.integer :user_id
 end
 
+ActiveRecord::Migration.create_table :users, :force => true do |t|
+end
+
 class Tweet < ActiveRecord::Base
+  belongs_to :user
+end
+
+class User < ActiveRecord::Base
+  has_many :tweets
 end

@@ -16,6 +16,7 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
 
   def test_all
     Tweet.create(user_id: 1)
+
     Tweet.delete_in_batches
 
     assert_equal 0, Tweet.count
@@ -32,6 +33,23 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
     end
 
     assert_equal 5, i
+  end
+
+  def test_association
+    user = User.create!
+    user.tweets.create!
+
+    user.tweets.delete_in_batches
+
+    assert_equal 0, user.tweets.count
+  end
+
+  def test_join
+    Tweet.create(user_id: 1)
+
+    Tweet.joins(:user).where(users: {id: 1}).delete_in_batches
+
+    assert_equal 0, Tweet.count
   end
 
 end
