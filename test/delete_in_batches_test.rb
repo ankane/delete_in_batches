@@ -14,6 +14,13 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
     assert_equal 2, Tweet.first.user_id
   end
 
+  def test_all
+    Tweet.create(user_id: 1)
+    Tweet.delete_in_batches
+
+    assert_equal 0, Tweet.count
+  end
+
   def test_progress
     10.times do
       Tweet.create(user_id: 1)
