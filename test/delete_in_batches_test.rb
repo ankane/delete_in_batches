@@ -2,11 +2,16 @@ require_relative "test_helper"
 
 class TestDeleteInBatches < Minitest::Unit::TestCase
 
+  def setup
+    User.delete_all
+    Tweet.delete_all
+  end
+
   def test_basic
     10.times do
-      Tweet.create(user_id: 1)
+      Tweet.create!(user_id: 1)
     end
-    Tweet.create(user_id: 2)
+    Tweet.create!(user_id: 2)
 
     Tweet.where(user_id: 1).delete_in_batches(batch_size: 2)
 
@@ -15,7 +20,7 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
   end
 
   def test_all
-    Tweet.create(user_id: 1)
+    Tweet.create!(user_id: 1)
 
     Tweet.delete_in_batches
 
@@ -24,7 +29,7 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
 
   def test_progress
     10.times do
-      Tweet.create(user_id: 1)
+      Tweet.create!(user_id: 1)
     end
 
     i = 0
@@ -45,9 +50,10 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
   end
 
   def test_join
-    Tweet.create(user_id: 1)
+    user = User.create!
+    user.tweets.create!
 
-    Tweet.joins(:user).where(users: {id: 1}).delete_in_batches
+    Tweet.joins(:user).where(users: {id: user.id}).delete_in_batches
 
     assert_equal 0, Tweet.count
   end
