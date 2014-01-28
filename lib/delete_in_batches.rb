@@ -1,4 +1,5 @@
 require "delete_in_batches/version"
+require "active_record"
 
 module DeleteInBatches
 
