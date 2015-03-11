@@ -1,7 +1,6 @@
 require_relative "test_helper"
 
-class TestDeleteInBatches < Minitest::Unit::TestCase
-
+class TestDeleteInBatches < Minitest::Test
   def setup
     User.delete_all
     Tweet.delete_all
@@ -57,5 +56,4 @@ class TestDeleteInBatches < Minitest::Unit::TestCase
 
     assert_equal 0, Tweet.count
   end
-
 end
