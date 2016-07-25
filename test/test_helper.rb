@@ -12,7 +12,7 @@ ActiveRecord::Base.default_timezone = :utc
 ActiveRecord::Base.time_zone_aware_attributes = true
 
 # migrations
-ActiveRecord::Base.establish_connection adapter: "postgresql", database: "delete_in_batches_test"
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
 
 ActiveRecord::Migration.create_table :tweets, force: true do |t|
   t.integer :user_id
