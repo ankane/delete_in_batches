@@ -9,6 +9,10 @@ module DeleteInBatches
     sql_proc = proc { select(pk).limit(batch_size).to_sql }
     sql      = connection.try(:unprepared_statement, &sql_proc) || sql_proc.call
 
+    if %w(MySQL Mysql2 Mysql2Spatial).include?(connection.adapter_name)
+      sql = "SELECT * FROM (#{sql}) AS t"
+    end
+
     while connection.delete("DELETE FROM #{quoted_table_name} WHERE #{pk} IN (#{sql})") == batch_size
       yield if block_given?
     end
