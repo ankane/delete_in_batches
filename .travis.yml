@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.4.1
+gemfile:
+  - Gemfile
+  - test/gemfiles/mysql2.gemfile
+sudo: false
+script: bundle exec rake test
+before_install:
+  - gem install bundler
+  - mysql -e 'create database delete_in_batches_test;'
+notifications:
+  email:
+    on_success: never
+    on_failure: change
