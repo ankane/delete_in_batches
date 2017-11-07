@@ -2,6 +2,12 @@
 
 :fire: The fastest way to delete 100k+ rows with ActiveRecord
 
+**Note: This gem is not needed in Rails 5+.** Instead, you can do:
+
+```ruby
+Tweet.where(user_id: 1).in_batches(of: 10000).delete_all
+```
+
 [![Build Status](https://travis-ci.org/ankane/delete_in_batches.svg?branch=master)](https://travis-ci.org/ankane/delete_in_batches)
 
 ## Slow
