@@ -65,6 +65,10 @@ To delete all rows in a table, `TRUNCATE` is fastest.
 ActiveRecord::Base.connection.execute("TRUNCATE tweets")
 ```
 
+## History
+
+View the [changelog](https://github.com/ankane/delete_in_batches/blob/master/CHANGELOG.md)
+
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
@@ -73,3 +77,12 @@ Everyone is encouraged to help improve this project. Here are a few ways you can
 - Fix bugs and [submit pull requests](https://github.com/ankane/delete_in_batches/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
+
+To get started with development:
+
+```sh
+git clone https://github.com/ankane/delete_in_batches.git
+cd delete_in_batches
+bundle install
+bundle exec rake test
+```
