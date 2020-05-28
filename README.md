@@ -2,13 +2,15 @@
 
 :fire: The fastest way to delete 100k+ rows with ActiveRecord
 
-**Note: This gem is not needed in Rails 5+.** Instead, you can do:
+[![Build Status](https://travis-ci.org/ankane/delete_in_batches.svg?branch=master)](https://travis-ci.org/ankane/delete_in_batches)
+
+## Installation
+
+Add this line to your application’s Gemfile:
 
 ```ruby
-Tweet.where(user_id: 1).in_batches(of: 10000).delete_all
+gem 'delete_in_batches'
 ```
-
-[![Build Status](https://travis-ci.org/ankane/delete_in_batches.svg?branch=master)](https://travis-ci.org/ankane/delete_in_batches)
 
 ## Slow
 
@@ -19,7 +21,16 @@ Tweet.where(user_id: 1).delete_all
 
 The database performs the delete in a transaction - either all the records are deleted (query completes) or none are, due to [multiversion concurrency control](http://en.wikipedia.org/wiki/Multiversion_concurrency_control).
 
-## Fast
+## Faster
+
+```ruby
+Tweet.where(user_id: 1).in_batches(of: 10000).delete_all
+# SELECT tweets.id FROM tweets WHERE user_id = 1 ORDER BY id LIMIT 1000
+# DELETE FROM tweets WHERE user_id = 1 AND id IN (1, 2, 3, ...)
+# ...
+```
+
+## Fastest
 
 ```ruby
 Tweet.where(user_id: 1).delete_in_batches
@@ -54,20 +65,6 @@ To delete all rows in a table, `TRUNCATE` is fastest.
 
 ```ruby
 ActiveRecord::Base.connection.execute("TRUNCATE tweets")
-```
-
-## Installation
-
-Add this line to your application’s Gemfile:
-
-```ruby
-gem "delete_in_batches"
-```
-
-And then execute:
-
-```sh
-bundle
 ```
 
 ## Contributing

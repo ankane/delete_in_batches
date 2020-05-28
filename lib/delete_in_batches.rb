@@ -1,5 +1,8 @@
+# dependencies
+require "active_support"
+
+# modules
 require "delete_in_batches/version"
-require "active_record"
 
 module DeleteInBatches
   def delete_in_batches(options = {})
@@ -19,4 +22,6 @@ module DeleteInBatches
   end
 end
 
-ActiveRecord::Base.send :extend, DeleteInBatches
+ActiveSupport.on_load(:active_record) do
+  extend DeleteInBatches
+end

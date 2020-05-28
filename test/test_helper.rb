@@ -2,10 +2,7 @@ require "bundler/setup"
 Bundler.require(:default)
 require "minitest/autorun"
 require "minitest/pride"
-
-ENV["RACK_ENV"] = "test"
-
-Minitest::Test = Minitest::Unit::TestCase unless defined?(Minitest::Test)
+require "active_record"
 
 # rails does this in activerecord/lib/active_record/railtie.rb
 ActiveRecord::Base.default_timezone = :utc
