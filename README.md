@@ -19,8 +19,6 @@ Tweet.where(user_id: 1).delete_all
 # DELETE FROM tweets WHERE user_id = 1
 ```
 
-The database performs the delete atomically - either all the records are deleted (query completes) or none are, due to [multiversion concurrency control](http://en.wikipedia.org/wiki/Multiversion_concurrency_control).
-
 ## Faster
 
 ```ruby
