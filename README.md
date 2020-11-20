@@ -2,7 +2,7 @@
 
 :fire: The fastest way to delete 100k+ rows with ActiveRecord
 
-[![Build Status](https://travis-ci.org/ankane/delete_in_batches.svg?branch=master)](https://travis-ci.org/ankane/delete_in_batches)
+[![Build Status](https://github.com/ankane/delete_in_batches/workflows/build/badge.svg?branch=master)](https://github.com/ankane/delete_in_batches/actions)
 
 ## Installation
 

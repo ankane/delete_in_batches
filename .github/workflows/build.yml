@@ -1,0 +1,27 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - ruby: 2.7
+        - ruby: 2.6
+          gemfile: gemfiles/mysql2.gemfile
+          mysql: true
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+    - if: ${{ matrix.mysql }}
+      uses: ankane/setup-mysql@v1
+    - if: ${{ matrix.mysql }}
+      run: mysqladmin create delete_in_batches_test
+    - run: bundle exec rake test
