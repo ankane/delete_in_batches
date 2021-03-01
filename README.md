@@ -28,7 +28,7 @@ Change the batch size
 Tweet.where(user_id: 1).delete_in_batches(batch_size: 50000) # defaults to 10000
 ```
 
-Sleep between queries [master]
+Sleep between batches [master]
 
 ```ruby
 Tweet.where(user_id: 1).delete_in_batches(sleep: 0.01)
