@@ -3,7 +3,7 @@ require_relative "lib/delete_in_batches/version"
 Gem::Specification.new do |spec|
   spec.name          = "delete_in_batches"
   spec.version       = DeleteInBatches::VERSION
-  spec.summary       = "Fast batch deletes for Active Record"
+  spec.summary       = "Fast batch deletes for Active Record and Postgres"
   spec.homepage      = "https://github.com/ankane/delete_in_batches"
   spec.license       = "MIT"
 
