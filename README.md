@@ -52,6 +52,8 @@ ActiveRecord::Base.connection.execute("TRUNCATE tweets")
 
 View the [changelog](https://github.com/ankane/delete_in_batches/blob/master/CHANGELOG.md)
 
+**Note:** This project was originally described as “the fastest way to delete 100k+ rows with ActiveRecord” but a single `DELETE` statement will likely be faster. See [this discussion](https://github.com/ankane/delete_in_batches/issues/4) for more details.
+
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
