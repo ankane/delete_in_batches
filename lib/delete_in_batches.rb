@@ -18,6 +18,7 @@ module DeleteInBatches
 
     while connection.delete("DELETE FROM #{quoted_table_name} WHERE #{pk} IN (#{sql})") == batch_size
       yield if block_given?
+      sleep(options[:sleep]) if options[:sleep]
     end
   end
 end

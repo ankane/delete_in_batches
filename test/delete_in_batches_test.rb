@@ -26,6 +26,16 @@ class TestDeleteInBatches < Minitest::Test
     assert_equal 0, Tweet.count
   end
 
+  def test_sleep
+    10.times do
+      Tweet.create!(user_id: 1)
+    end
+
+    started_at = Time.now
+    Tweet.where(user_id: 1).delete_in_batches(batch_size: 2, sleep: 0.01)
+    assert_operator(Time.now - started_at, :>=, 0.05)
+  end
+
   def test_progress
     10.times do
       Tweet.create!(user_id: 1)

@@ -1,3 +1,7 @@
+## 0.2.1 (unreleased)
+
+- Added `sleep` option
+
 ## 0.2.0 (2020-05-27)
 
 - Improved Active Record integration
