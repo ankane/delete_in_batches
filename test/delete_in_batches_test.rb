@@ -7,9 +7,7 @@ class TestDeleteInBatches < Minitest::Test
   end
 
   def test_basic
-    10.times do
-      Tweet.create!(user_id: 1)
-    end
+    create_tweets
     Tweet.create!(user_id: 2)
 
     Tweet.where(user_id: 1).delete_in_batches(batch_size: 2)
@@ -27,9 +25,7 @@ class TestDeleteInBatches < Minitest::Test
   end
 
   def test_sleep
-    10.times do
-      Tweet.create!(user_id: 1)
-    end
+    create_tweets
 
     started_at = Time.now
     Tweet.where(user_id: 1).delete_in_batches(batch_size: 2, sleep: 0.01)
@@ -37,9 +33,7 @@ class TestDeleteInBatches < Minitest::Test
   end
 
   def test_progress
-    10.times do
-      Tweet.create!(user_id: 1)
-    end
+    create_tweets
 
     i = 0
     Tweet.where(user_id: 1).delete_in_batches(batch_size: 2) do
@@ -65,5 +59,14 @@ class TestDeleteInBatches < Minitest::Test
     Tweet.joins(:user).where(users: {id: user.id}).delete_in_batches
 
     assert_equal 0, Tweet.count
+  end
+
+  def create_tweets
+    tweets = 10.times.map { {user_id: 1} }
+    if Tweet.respond_to?(:insert_all)
+      Tweet.insert_all(tweets)
+    else
+      Tweet.create!(tweets)
+    end
   end
 end

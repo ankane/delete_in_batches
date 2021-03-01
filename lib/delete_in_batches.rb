@@ -5,6 +5,7 @@ require "active_support"
 require "delete_in_batches/version"
 
 module DeleteInBatches
+  # TODO use keyword arguments
   def delete_in_batches(options = {})
     batch_size = options[:batch_size] || 10000
 
