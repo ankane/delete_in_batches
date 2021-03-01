@@ -11,17 +11,15 @@ ActiveRecord::Base.default_timezone = :utc
 ActiveRecord::Base.time_zone_aware_attributes = true
 
 # migrations
-connection_spec =
-  case ENV["ADAPTER"]
-  when "postgresql"
-    {adapter: "postgresql", database: "delete_in_batches_test"}
-  when "mysql2"
-    {adapter: "mysql2", database: "delete_in_batches_test"}
-  else
-    {adapter: "sqlite3", database: ":memory:"}
-  end
+case ENV["ADAPTER"]
+when "postgresql"
+  ActiveRecord::Base.establish_connection(adapter: "postgresql", database: "delete_in_batches_test")
+when "mysql2"
+  ActiveRecord::Base.establish_connection(adapter: "mysql2", database: "delete_in_batches_test")
+else
+  ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
+end
 
-ActiveRecord::Base.establish_connection(connection_spec)
 ActiveRecord::Schema.verbose = ENV["VERBOSE"]
 ActiveRecord::Schema.define do
   create_table :tweets, force: true do |t|
@@ -39,6 +37,3 @@ end
 class User < ActiveRecord::Base
   has_many :tweets
 end
-
-# for debugging
-# ActiveRecord::Base.logger = Logger.new(STDOUT)
