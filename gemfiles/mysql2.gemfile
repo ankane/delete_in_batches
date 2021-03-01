@@ -2,4 +2,6 @@ source "https://rubygems.org"
 
 gemspec path: ".."
 
+gem "rake"
+gem "minitest"
 gem "mysql2"
