@@ -8,10 +8,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
+        - ruby: 3.0
         - ruby: 2.7
+          adapter: postgresql
         - ruby: 2.6
-          gemfile: gemfiles/mysql2.gemfile
-          mysql: true
+          adapter: mysql2
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
@@ -20,8 +21,15 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - if: ${{ matrix.mysql }}
+
+    - if: ${{ matrix.adapter == 'postgresql' }}
+      uses: ankane/setup-postgres@v1
+    - if: ${{ matrix.adapter == 'postgresql' }}
+      run: createdb delete_in_batches_test
+
+    - if: ${{ matrix.adapter == 'mysql2' }}
       uses: ankane/setup-mysql@v1
-    - if: ${{ matrix.mysql }}
+    - if: ${{ matrix.adapter == 'mysql2' }}
       run: mysqladmin create delete_in_batches_test
-    - run: bundle exec rake test
+
+    - run: ADAPTER=${{ matrix.adapter }} bundle exec rake test
