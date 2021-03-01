@@ -17,6 +17,11 @@ module DeleteInBatches
       sql = "SELECT * FROM (#{sql}) AS t"
     end
 
+    unless connection.adapter_name =~ /postg/i
+      # TODO raise error
+      warn "[delete_in_batches] Use in_batches(of: #{batch_size.to_i}).delete_all instead of this gem for non-Postgres databases"
+    end
+
     while connection.delete("DELETE FROM #{quoted_table_name} WHERE #{pk} IN (#{sql})") == batch_size
       yield if block_given?
       sleep(options[:sleep]) if options[:sleep]

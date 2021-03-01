@@ -1,5 +1,6 @@
 ## 0.2.1 (unreleased)
 
+- Added warning for non-Postgres databases
 - Added `sleep` option
 
 ## 0.2.0 (2020-05-27)
