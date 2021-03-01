@@ -1,6 +1,6 @@
 # delete_in_batches
 
-:fire: The fastest way to delete 100k+ rows with ActiveRecord
+:fire: Batch deletes for Active Record
 
 [![Build Status](https://github.com/ankane/delete_in_batches/workflows/build/badge.svg?branch=master)](https://github.com/ankane/delete_in_batches/actions)
 
@@ -12,29 +12,12 @@ Add this line to your application’s Gemfile:
 gem 'delete_in_batches'
 ```
 
-## Slow
+## How to Use
 
-```ruby
-Tweet.where(user_id: 1).delete_all
-# DELETE FROM tweets WHERE user_id = 1
-```
-
-## Faster
-
-```ruby
-Tweet.where(user_id: 1).in_batches(of: 10000).delete_all
-# SELECT tweets.id FROM tweets WHERE user_id = 1 ORDER BY id LIMIT 1000
-# DELETE FROM tweets WHERE user_id = 1 AND id IN (1, 2, 3, ...)
-# ...
-```
-
-## Fastest
+Delete rows in batches
 
 ```ruby
 Tweet.where(user_id: 1).delete_in_batches
-# DELETE FROM tweets WHERE id IN (SELECT id FROM tweets WHERE user_id = 1 LIMIT 10000)
-# DELETE FROM tweets WHERE id IN (SELECT id FROM tweets WHERE user_id = 1 LIMIT 10000)
-# ...
 ```
 
 **Important:** Be sure to test your query before running it in production
