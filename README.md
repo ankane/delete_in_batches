@@ -1,6 +1,6 @@
 # delete_in_batches
 
-:fire: Batch deletes for Active Record
+:fire: Fast batch deletes for Active Record
 
 [![Build Status](https://github.com/ankane/delete_in_batches/workflows/build/badge.svg?branch=master)](https://github.com/ankane/delete_in_batches/actions)
 
