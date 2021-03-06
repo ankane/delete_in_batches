@@ -28,7 +28,7 @@ Change the batch size
 Tweet.where(user_id: 1).delete_in_batches(batch_size: 50000) # defaults to 10000
 ```
 
-Sleep between batches [master]
+Sleep between batches
 
 ```ruby
 Tweet.where(user_id: 1).delete_in_batches(sleep: 0.01)
@@ -58,7 +58,7 @@ ActiveRecord::Base.connection.execute("TRUNCATE tweets")
 
 View the [changelog](https://github.com/ankane/delete_in_batches/blob/master/CHANGELOG.md)
 
-**Note:** This project was originally described as “the fastest way to delete 100k+ rows with ActiveRecord” but a single `DELETE` statement will likely be faster. See [this discussion](https://github.com/ankane/delete_in_batches/issues/4) for more details.
+**Note:** This project originally had the description “the fastest way to delete 100k+ rows with ActiveRecord” but a single `DELETE` statement will likely be faster. See [this discussion](https://github.com/ankane/delete_in_batches/issues/4) for more details.
 
 ## Contributing
 

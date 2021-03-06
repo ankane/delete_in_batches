@@ -1,4 +1,4 @@
-## 0.2.1 (unreleased)
+## 0.2.1 (2021-03-06)
 
 - Added warning for non-Postgres databases
 - Added `sleep` option
