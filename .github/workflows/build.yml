@@ -2,34 +2,22 @@ name: build
 on: [push, pull_request]
 jobs:
   build:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-        - ruby: 3.0
-        - ruby: 2.7
-          adapter: postgresql
-        - ruby: 2.6
-          adapter: mysql2
-    env:
-      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
 
-    - if: ${{ matrix.adapter == 'postgresql' }}
-      uses: ankane/setup-postgres@v1
-    - if: ${{ matrix.adapter == 'postgresql' }}
-      run: createdb delete_in_batches_test
+      - run: bundle exec rake test
 
-    - if: ${{ matrix.adapter == 'mysql2' }}
-      uses: ankane/setup-mysql@v1
-    - if: ${{ matrix.adapter == 'mysql2' }}
-      run: mysqladmin create delete_in_batches_test
+      - uses: ankane/setup-postgres@v1
+        with:
+          database: delete_in_batches_test
+      - run: ADAPTER=postgresql bundle exec rake test
 
-    - run: ADAPTER=${{ matrix.adapter }} bundle exec rake test
+      - uses: ankane/setup-mysql@v1
+        with:
+          database: delete_in_batches_test
+      - run: ADAPTER=mysql2 bundle exec rake test
